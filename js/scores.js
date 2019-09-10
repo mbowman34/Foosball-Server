@@ -13,8 +13,8 @@ blankScores=
 function displayScores() {
     table = tableHeader;
     table += "<tr><th>A</th><th>" + scores["A"]["win"] + "</th><th>" + scores["A"]["loss"] + "</th><th>" + scores["A"]["diff"] + "</th><th>" + scores["A"]["A"]  + "</th><th>" + scores["A"]["B"]  + "</th><th>" + scores["A"]["C"] + "</th>";
-    table += "<tr><th>B</th><th>" + scores["B"]["win"] + "</th><th>" + scores["B"]["loss"] + "</th><th>" + scores["B"]["diff"] + "</th><<th>" + scores["B"]["A"]  + "</th><th>" + scores["B"]["B"]  + "</th><th>" + scores["B"]["C"] + "</th>";
-    table += "<tr><th>C</th><th>" + scores["C"]["win"] + "</th><th>" + scores["C"]["loss"] + "</th><th>" + scores["C"]["diff"] + "</th><<th>" + scores["C"]["A"]  + "</th><th>" + scores["C"]["B"]  + "</th><th>" + scores["C"]["C"] + "</th>";
+    table += "<tr><th>B</th><th>" + scores["B"]["win"] + "</th><th>" + scores["B"]["loss"] + "</th><th>" + scores["B"]["diff"] + "</th><th>" + scores["B"]["A"]  + "</th><th>" + scores["B"]["B"]  + "</th><th>" + scores["B"]["C"] + "</th>";
+    table += "<tr><th>C</th><th>" + scores["C"]["win"] + "</th><th>" + scores["C"]["loss"] + "</th><th>" + scores["C"]["diff"] + "</th><th>" + scores["C"]["A"]  + "</th><th>" + scores["C"]["B"]  + "</th><th>" + scores["C"]["C"] + "</th>";
     table += endTable
     document.getElementById("scores").innerHTML = table;
 }
@@ -49,7 +49,7 @@ function recordGame() {
 
     //Adjust scores of the loser
     scores[l]["loss"]++;
-    scores[l][w]--;
+    scores[l][w]++;
     scores[l]["diff"]-=diff;
     sendScores();
 }
