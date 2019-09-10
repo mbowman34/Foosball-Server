@@ -3,6 +3,13 @@ tableHeader = "<table " + tableCss + "><tr><th>Team</th><th>Wins</th><th>Losses<
 endTable = "</table>";
 scores = {};
 
+blankScores=
+{
+    "A":{"win":0,"loss":0,"A":0,"B":0,"C":0},
+    "B":{"win":0,"loss":0,"A":0,"B":0,"C":0},
+    "C":{"win":0,"loss":0,"A":0,"B":0,"C":0}
+}
+
 function displayScores() {
     table = tableHeader;
     table += "<tr><th>A</th><th>" + scores["A"]["win"] + "</th><th>" + scores["A"]["loss"] + "</th><th>" + scores["A"]["A"]  + "</th><th>" + scores["A"]["B"]  + "</th><th>" + scores["A"]["C"] + "</th>" 
@@ -10,6 +17,16 @@ function displayScores() {
     table += "<tr><th>C</th><th>" + scores["C"]["win"] + "</th><th>" + scores["C"]["loss"] + "</th><th>" + scores["C"]["A"]  + "</th><th>" + scores["C"]["B"]  + "</th><th>" + scores["C"]["C"] + "</th>" 
     table += endTable
     document.getElementById("scores").innerHTML = table;
+}
+function sendScores() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+    };
+    xhttp.open("POST", "/recordGame", true);
+    xhttp.send(JSON.stringify(scores));
+    displayScores();
 }
 
 function recordGame() {
@@ -21,20 +38,11 @@ function recordGame() {
         //can't play yourself
 	return;
     }
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        }
-    };
-    xhttp.open("POST", "/recordGame", true);
-    
     scores[w]["win"]++;
     scores[w][l]++;
     scores[l]["loss"]++;
     scores[l][w]--;
-    msg = {"winner": w, "loser": l};
-    xhttp.send(JSON.stringify(scores));
-    displayScores();
+    sendScores();
 }
 
 function getScores() {
@@ -49,4 +57,9 @@ function getScores() {
     xhttp.send();
 }
 
+function reset() {
+    //deep copy blank scores
+    scores = JSON.parse(JSON.stringify(blankScores));
+    sendScores();
+}
 getScores();
