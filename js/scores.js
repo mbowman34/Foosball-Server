@@ -1,4 +1,5 @@
-tableHeader = "<table><tr><th>Team</th><th>Wins</th><th>Losses</th><th>Diff A</th><th>Diff B</th><th>Diff C</th></tr>";
+tableCss="class=\"w3-table-all\" style=\"width: 500px;\""
+tableHeader = "<table " + tableCss + "><tr><th>Team</th><th>Wins</th><th>Losses</th><th>Diff A</th><th>Diff B</th><th>Diff C</th></tr>";
 endTable = "</table>";
 scores = {};
 
