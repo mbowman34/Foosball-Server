@@ -34,14 +34,17 @@ function recordGame() {
     w = wElem.options[wElem.selectedIndex].value,
     lElem = document.getElementById("loser");
     l = lElem.options[lElem.selectedIndex].value;
+    diffElem = document.getElementById("diff");
+    diffStr = diffElem.options[diffElem.selectedIndex].value;
+    diff = parseInt(diffStr);
     if(w == l) {
         //can't play yourself
 	return;
     }
     scores[w]["win"]++;
-    scores[w][l]++;
+    scores[w][l]+=diff;
     scores[l]["loss"]++;
-    scores[l][w]--;
+    scores[l][w]-=diff;
     sendScores();
 }
 
