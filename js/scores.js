@@ -68,7 +68,9 @@ function getScores() {
 
 function reset() {
     //deep copy blank scores
-    scores = JSON.parse(JSON.stringify(blankScores));
-    sendScores();
+    if(confirm("Are you sure you want to wipe the scores?")) {
+        scores = JSON.parse(JSON.stringify(blankScores));
+        sendScores();
+    }
 }
 getScores();
