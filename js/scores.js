@@ -54,6 +54,25 @@ function recordGame() {
     sendScores();
 }
 
+
+function getScoresHistorical() {
+    seasonElem = document.getElementById("season");
+    season = seasonElem.options[seasonElem.selectedIndex].value;
+    if(season == "current") {
+        getScores();
+        return;
+    }
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            scores = JSON.parse(this.responseText);
+	    displayScores();
+        }
+    };
+    xhttp.open("POST", "/getScoresHistorical", true);
+    xhttp.send(season);
+}
+
 function getScores() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {

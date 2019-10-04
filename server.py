@@ -24,6 +24,13 @@ def getScores():
         scores = json.load(file)
         return json.dumps(scores)
 
+@app.route("/getScoresHistorical", methods=["POST"])
+def getScoresHistorical():
+    print "got request for old scores" + str(request.data)
+    with open("./historical/" + str(request.data) + ".json", 'r') as file:
+        scores = json.load(file)
+        return json.dumps(scores)
+
 @app.route("/recordGame", methods=["POST"])
 def recordGame():
     with open("./scores.json", "w") as file:
