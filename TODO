@@ -1,0 +1,5 @@
+1. Add an end season button that moves the current scores to historical and creates a new one
+2. Display the current season
+3. Make the teams configurable
+4. Record the outcome of each game in the json, summarize for table
+5. Able to remove specific games from the web interface (in case something was recorded incorrectly)
