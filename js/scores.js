@@ -1,7 +1,9 @@
-tableCss="class=\"w3-table-all\" style=\"width: 500px;\""
-tableHeader = "<table " + tableCss + "><tr><th>Team</th><th>Wins</th><th>Losses</th><th>Diff</th><th>A</th><th>B</th><th>C</th></tr>";
-endTable = "</table>";
-scores = {};
+var tableCss="class=\"w3-table-all\" style=\"width: 500px;\""
+var tableHeader = "<table " + tableCss + "><tr><th>Team</th><th>Wins</th><th>Losses</th><th>Diff</th><th>A</th><th>B</th><th>C</th></tr>";
+var endTable = "</table>";
+var scores = {};
+
+var current = true;
 
 blankScores=
 {
@@ -11,7 +13,7 @@ blankScores=
 }
 
 function displayScores() {
-    table = tableHeader;
+    var table = tableHeader;
     table += "<tr><th>A</th><th>" + scores["A"]["win"] + "</th><th>" + scores["A"]["loss"] + "</th><th>" + scores["A"]["diff"] + "</th><th>" + scores["A"]["A"]  + "</th><th>" + scores["A"]["B"]  + "</th><th>" + scores["A"]["C"] + "</th>";
     table += "<tr><th>B</th><th>" + scores["B"]["win"] + "</th><th>" + scores["B"]["loss"] + "</th><th>" + scores["B"]["diff"] + "</th><th>" + scores["B"]["A"]  + "</th><th>" + scores["B"]["B"]  + "</th><th>" + scores["B"]["C"] + "</th>";
     table += "<tr><th>C</th><th>" + scores["C"]["win"] + "</th><th>" + scores["C"]["loss"] + "</th><th>" + scores["C"]["diff"] + "</th><th>" + scores["C"]["A"]  + "</th><th>" + scores["C"]["B"]  + "</th><th>" + scores["C"]["C"] + "</th>";
@@ -30,6 +32,10 @@ function sendScores() {
 }
 
 function recordGame() {
+    if(!current) {
+        alert("Can only record score for current game");
+        return;
+    }
     wElem = document.getElementById("winner");
     w = wElem.options[wElem.selectedIndex].value,
     lElem = document.getElementById("loser");
@@ -59,9 +65,11 @@ function getScoresHistorical() {
     seasonElem = document.getElementById("season");
     season = seasonElem.options[seasonElem.selectedIndex].value;
     if(season == "current") {
+        current = true;
         getScores();
         return;
     }
+    current = false;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
