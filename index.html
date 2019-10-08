@@ -5,11 +5,7 @@
 	<body>
 	    <h1>Foosball Scores</h1>
 	    <h3>Teams</h3>
-	    <ul>
-	        <li>A: Zenon and Josh</li>
-	        <li>B: Montana and Eli</li>
-	        <li>C: Tommy and Sorin</li>
-	    </ul>
+	    <ul id="teams"></ul>
 	    <script src="js/scores.js"></script>
 	    <p id="scores"></p>
 	    <h3>Record Game</h3>
@@ -39,5 +35,58 @@
               <option value="1">1</option>
             </select>
             <button onclick="getScoresHistorical()">Get Scores</button>
+	    <h3>Update Teams</h3>
+            Team A:
+            <select id="teamA1">
+              <option value="Montana">Montana</option>
+              <option value="Josh">Josh</option>
+              <option value="Tommy">Tommy</option>
+              <option value="Eli">Eli</option>
+              <option value="Zenon">Zenon</option>
+              <option value="Sorin">Sorin</option>
+            </select>
+            <select id="teamA2">
+              <option value="Montana">Montana</option>
+              <option value="Josh">Josh</option>
+              <option value="Tommy">Tommy</option>
+              <option value="Eli">Eli</option>
+              <option value="Zenon">Zenon</option>
+              <option value="Sorin">Sorin</option>
+            </select>
+            Team B:
+            <select id="teamB1">
+              <option value="Montana">Montana</option>
+              <option value="Josh">Josh</option>
+              <option value="Tommy">Tommy</option>
+              <option value="Eli">Eli</option>
+              <option value="Zenon">Zenon</option>
+              <option value="Sorin">Sorin</option>
+            </select>
+            <select id="teamB2">
+              <option value="Montana">Montana</option>
+              <option value="Josh">Josh</option>
+              <option value="Tommy">Tommy</option>
+              <option value="Eli">Eli</option>
+              <option value="Zenon">Zenon</option>
+              <option value="Sorin">Sorin</option>
+            </select>
+            Team C:
+            <select id="teamC1">
+              <option value="Montana">Montana</option>
+              <option value="Josh">Josh</option>
+              <option value="Tommy">Tommy</option>
+              <option value="Eli">Eli</option>
+              <option value="Zenon">Zenon</option>
+              <option value="Sorin">Sorin</option>
+            </select>
+            <select id="teamC2">
+              <option value="Montana">Montana</option>
+              <option value="Josh">Josh</option>
+              <option value="Tommy">Tommy</option>
+              <option value="Eli">Eli</option>
+              <option value="Zenon">Zenon</option>
+              <option value="Sorin">Sorin</option>
+            </select>
+            <button onclick="setTeams()">Set Teams</button>
 	</body>
 </html>

@@ -2,7 +2,7 @@ var tableCss="class=\"w3-table-all\" style=\"width: 500px;\""
 var tableHeader = "<table " + tableCss + "><tr><th>Team</th><th>Wins</th><th>Losses</th><th>Diff</th><th>A</th><th>B</th><th>C</th></tr>";
 var endTable = "</table>";
 var scores = {};
-
+var teams = {};
 var current = true;
 
 blankScores=
@@ -10,6 +10,13 @@ blankScores=
     "A":{"win":0,"loss":0,"diff":0,"A":0,"B":0,"C":0},
     "B":{"win":0,"loss":0,"diff":0,"A":0,"B":0,"C":0},
     "C":{"win":0,"loss":0,"diff":0,"A":0,"B":0,"C":0}
+}
+
+function displayTeams() {
+    var list = "<li>A: " + teams["A"][0] + " and " + teams["A"][1] + "</li>";
+    list += "<li>B: " + teams["B"][0] + " and " + teams["B"][1] + "</li>";
+    list += "<li>C: " + teams["C"][0] + " and " + teams["C"][1] + "</li>";
+    document.getElementById("teams").innerHTML = list;
 }
 
 function displayScores() {
@@ -29,6 +36,61 @@ function sendScores() {
     xhttp.open("POST", "/recordGame", true);
     xhttp.send(JSON.stringify(scores));
     displayScores();
+}
+
+function validTeam(t) {
+    var set = new Set();
+    set.add(t["A"][0]);
+    set.add(t["A"][1]);
+    set.add(t["B"][0]);
+    set.add(t["B"][1]);
+    set.add(t["C"][0]);
+    set.add(t["C"][1]);
+    if(set.size == 6) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function sendTeam() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+    };
+    xhttp.open("POST", "/setTeams", true);
+    xhttp.send(JSON.stringify(teams));
+    displayTeams();
+}
+
+function setTeams() {
+    var t = {"A":[],"B":[],"C":[]};
+    playerElem = document.getElementById("teamA1");
+    player = playerElem.options[playerElem.selectedIndex].value,
+    t["A"].push(player);
+    playerElem = document.getElementById("teamA2");
+    player = playerElem.options[playerElem.selectedIndex].value,
+    t["A"].push(player);
+    playerElem = document.getElementById("teamB1");
+    player = playerElem.options[playerElem.selectedIndex].value,
+    t["B"].push(player);
+    playerElem = document.getElementById("teamB2");
+    player = playerElem.options[playerElem.selectedIndex].value,
+    t["B"].push(player);
+    playerElem = document.getElementById("teamC1");
+    player = playerElem.options[playerElem.selectedIndex].value,
+    t["C"].push(player);
+    playerElem = document.getElementById("teamC2");
+    player = playerElem.options[playerElem.selectedIndex].value,
+    t["C"].push(player);
+    if(!validTeam(t)){
+        alert("Invalid team!");
+        return;
+    }
+    teams = t;
+    sendTeam();
 }
 
 function recordGame() {
@@ -81,6 +143,18 @@ function getScoresHistorical() {
     xhttp.send(season);
 }
 
+function getTeams() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            teams = JSON.parse(this.responseText);
+	    displayTeams();
+        }
+    };
+    xhttp.open("POST", "/getTeams", true);
+    xhttp.send();
+}
+
 function getScores() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -100,4 +174,5 @@ function reset() {
         sendScores();
     }
 }
+getTeams();
 getScores();

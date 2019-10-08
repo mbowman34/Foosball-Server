@@ -18,6 +18,18 @@ def favicon():
 def send_js(path):
     return send_from_directory('js', path)
 
+@app.route("/getTeams", methods=["POST"])
+def getTeams():
+    with open("./teams.json", 'r') as file:
+        teams = json.load(file)
+        return json.dumps(teams)
+
+@app.route("/setTeams", methods=["POST"])
+def setTeams():
+    with open("./teams.json", "w") as file:
+        file.write(request.data)
+    return "okay"
+
 @app.route("/getScores", methods=["POST"])
 def getScores():
     with open("./scores.json", 'r') as file:
