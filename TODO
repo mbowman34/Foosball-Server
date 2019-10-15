@@ -1,5 +1,4 @@
-1. Add an end season button that moves the current scores and team to historical and creates a new one
+1. Request the current season number and update the old season drop down dynamically
 2. Display the current season
-3. Load and store old teams when viewing old seasons
-4. Record the outcome of each game in the json, summarize for table
-5. Able to remove specific games from the web interface (in case something was recorded incorrectly)
+3. Record the outcome of each game in the json, summarize for table
+4. Able to remove specific games from the web interface (in case something was recorded incorrectly)

@@ -3,6 +3,7 @@ from flask import Flask
 from flask import send_file
 from flask import send_from_directory
 from flask import request
+import subprocess
 
 app = Flask(__name__)
 
@@ -24,6 +25,12 @@ def getTeams():
         teams = json.load(file)
         return json.dumps(teams)
 
+@app.route("/getTeamsHistorical", methods=["POST"])
+def getTeamsHistorical():
+    with open("./historical/teams" + str(request.data) + ".json", 'r') as file:
+        scores = json.load(file)
+        return json.dumps(scores)
+
 @app.route("/setTeams", methods=["POST"])
 def setTeams():
     with open("./teams.json", "w") as file:
@@ -38,8 +45,7 @@ def getScores():
 
 @app.route("/getScoresHistorical", methods=["POST"])
 def getScoresHistorical():
-    print "got request for old scores" + str(request.data)
-    with open("./historical/" + str(request.data) + ".json", 'r') as file:
+    with open("./historical/scores" + str(request.data) + ".json", 'r') as file:
         scores = json.load(file)
         return json.dumps(scores)
 
@@ -47,6 +53,11 @@ def getScoresHistorical():
 def recordGame():
     with open("./scores.json", "w") as file:
         file.write(request.data)
+    return "okay"
+
+@app.route("/endSeason", methods=["POST"])
+def endSeason():
+    subprocess.call("./newSeason.sh")
     return "okay"
 
 if __name__ == '__main__':

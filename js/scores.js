@@ -89,8 +89,10 @@ function setTeams() {
         alert("Invalid team!");
         return;
     }
-    teams = t;
-    sendTeam();
+    if(confirm("Are you sure you want to change the teams?")) {
+        teams = t;
+        sendTeam();
+    }
 }
 
 function recordGame() {
@@ -129,6 +131,7 @@ function getScoresHistorical() {
     if(season == "current") {
         current = true;
         getScores();
+        getTeams();
         return;
     }
     current = false;
@@ -140,6 +143,16 @@ function getScoresHistorical() {
         }
     };
     xhttp.open("POST", "/getScoresHistorical", true);
+    xhttp.send(season);
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            teams = JSON.parse(this.responseText);
+	    displayTeams();
+        }
+    };
+    xhttp.open("POST", "/getTeamsHistorical", true);
     xhttp.send(season);
 }
 
@@ -165,6 +178,24 @@ function getScores() {
     };
     xhttp.open("POST", "/getScores", true);
     xhttp.send();
+}
+
+function endSeason() {
+    //deep copy blank scores
+    if(!confirm("Are you sure you want end the season?")) {
+        return;
+    }
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            scores = JSON.parse(this.responseText);
+	    displayScores();
+        }
+    };
+    xhttp.open("POST", "/endSeason", true);
+    xhttp.send();
+    scores = JSON.parse(JSON.stringify(blankScores));
+    displayScores();
 }
 
 function reset() {
