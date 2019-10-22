@@ -1,13 +1,22 @@
 <!doctype html>
 <html>
-	<head><title>Foosball</title></head>
+	<head>
+      <title>Foosball</title>
+      <style>
+         body  {
+            background-image: url("background.jpg");
+            background-repeat:no-repeat;
+            background-size:cover;
+         }
+      </style>
+   </head>
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<body>
+	<body style="color:white;">
 	    <h1>Foosball Scores</h1>
 	    <h3>Teams</h3>
 	    <ul id="teams"></ul>
 	    <script src="js/scores.js"></script>
-	    <p id="scores"></p>
+	    <p id="scores"style="color:black;"></p>
 	    <h3>Record Game</h3>
 	    Team: 
             <select id="winner">

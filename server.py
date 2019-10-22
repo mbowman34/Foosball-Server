@@ -15,6 +15,10 @@ def index():
 def favicon():
     return send_file("favicon.ico")
 
+@app.route('/background.jpg')
+def background():
+    return send_file("background.jpg")
+
 @app.route('/js/<path:path>')
 def send_js(path):
     return send_from_directory('js', path)
