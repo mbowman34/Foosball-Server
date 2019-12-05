@@ -2,3 +2,5 @@
 2. Display the current season
 3. Record the outcome of each game in the json, summarize for table
 4. Able to remove specific games from the web interface (in case something was recorded incorrectly)
+5. Button to generate a new team randomly
+6. Button to pick most unique teams based on history
